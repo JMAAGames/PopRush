@@ -13,3 +13,9 @@ func move(target):
 
 func dim():
 	sprite.modulate = Color(1, 1, 1, 0.5)
+
+func dance_up():
+	scale = Vector2(0.75, 0.75)
+
+func dance_down():
+	scale = Vector2(0.5, 0.5)

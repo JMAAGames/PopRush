@@ -19,10 +19,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8cn7"]
-size = Vector2(32, 50)
+size = Vector2(32, 61.6585)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_koaeq"]
-size = Vector2(32, 4)
+size = Vector2(32, 1.21951)
 
 [node name="Heart" type="AnimatedSprite2D"]
 scale = Vector2(2.5625, 2.5625)
@@ -32,12 +32,15 @@ script = ExtResource("3_fpqek")
 [node name="ActionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea"]
-position = Vector2(0, -9)
+position = Vector2(0, -14.8293)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_h8cn7")
 
 [node name="DoneArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoneArea"]
+position = Vector2(0, 1.39024)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_koaeq")
 
 [node name="PushTimer" type="Timer" parent="."]

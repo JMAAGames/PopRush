@@ -14,6 +14,11 @@ func _on_action_area_area_entered(area):
 		done = false
 		current_note = area
 		frame = 1
+		emit_signal("action_now", action)
+		var bottles = get_parent().get_node("Grid").get_children()
+		for bottle in bottles:
+			if bottle is Node2D:
+				bottle.dance_up()
 
 
 
@@ -25,6 +30,11 @@ func _on_done_area_area_entered(area):
 		current_note.get_parent().destroy()
 		current_note = null
 		frame = 0
+		emit_signal("done_now", done)
+		var bottles = get_parent().get_node("Grid").get_children()
+		for bottle in bottles:
+			if bottle is Node2D:
+				bottle.dance_down()
 
 
 func _on_push_timer_timeout():
