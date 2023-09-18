@@ -3,6 +3,9 @@ extends Node2D
 enum {wait, move}
 var state
 
+var bpm = 126
+var sec_per_beat = 60.0 / bpm
+
 @export var width: int
 @export var height: int
 @export var offset: int
@@ -48,17 +51,17 @@ func _ready():
 func setup_timers():
 	destroy_timer.connect("timeout", Callable(self, "destroy_matches"))
 	destroy_timer.set_one_shot(true)
-	destroy_timer.set_wait_time(0.2)
+	destroy_timer.set_wait_time(sec_per_beat)
 	add_child(destroy_timer)
 	
 	collapse_timer.connect("timeout", Callable(self, "collapse_columns"))
 	collapse_timer.set_one_shot(true)
-	collapse_timer.set_wait_time(0.2)
+	collapse_timer.set_wait_time(sec_per_beat)
 	add_child(collapse_timer)
 
 	refill_timer.connect("timeout", Callable(self, "refill_columns"))
 	refill_timer.set_one_shot(true)
-	refill_timer.set_wait_time(0.2)
+	refill_timer.set_wait_time(sec_per_beat)
 	add_child(refill_timer)
 	
 func restricted_fill(place):
@@ -158,6 +161,7 @@ func swap_back():
 		swap_dots(last_place.x, last_place.y, last_direction)
 	state = move
 	move_checked = false
+	get_parent().increment_score(0)
 	
 func touch_difference(grid_1, grid_2):
 	var difference = grid_2 - grid_1
@@ -203,6 +207,13 @@ func is_piece_null(column, row):
 func match_and_dim(item):
 	item.matched = true
 	item.dim()
+	if get_parent().get_node("Heart")._current_note_status() != null:
+		if get_parent().get_node("Heart")._action_status() == true:
+			get_parent().increment_score(1)
+			get_parent().get_node("Heart")._current_note_status().get_parent().destroy()
+			get_parent().get_node("Heart")._reset()
+		else:
+			get_parent().increment_score(0)
 
 func destroy_matches():
 	var was_matched = false

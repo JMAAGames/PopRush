@@ -1,5 +1,10 @@
-[gd_scene format=3 uid="uid://comj7d467aywp"]
+[gd_scene load_steps=2 format=3 uid="uid://comj7d467aywp"]
+
+[ext_resource type="Script" path="res://Scripts/Conductor.gd" id="1_k53aj"]
 
 [node name="Conductor" type="AudioStreamPlayer"]
+script = ExtResource("1_k53aj")
 
 [node name="StartTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

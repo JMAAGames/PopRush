@@ -1,9 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://ynpouyser6kn"]
+[gd_scene load_steps=11 format=3 uid="uid://ynpouyser6kn"]
 
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1"]
+[ext_resource type="Script" path="res://Scripts/Game.gd" id="1_pj6c4"]
 [ext_resource type="PackedScene" uid="uid://bw5xgwkntkcm5" path="res://Scenes/heart.tscn" id="2_wx6cv"]
+[ext_resource type="FontFile" uid="uid://bkrdi1j8tdpx8" path="res://Fonts/ESTROG__.ttf" id="3_qsy6q"]
+[ext_resource type="FontFile" uid="uid://d2cy3jsqfhs26" path="res://Fonts/GiveAHootBlk.otf" id="4_2cq3b"]
+[ext_resource type="Texture2D" uid="uid://b563vsqsi7mfu" path="res://Assets/UI/rush.png" id="5_1f72l"]
+[ext_resource type="PackedScene" uid="uid://comj7d467aywp" path="res://Scenes/Conductor.tscn" id="7_p2l4p"]
+[ext_resource type="AudioStream" uid="uid://cctfl56jdegjk" path="res://Music/02 - Hi Daddy.ogg" id="8_h8pq6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4vfjx"]
+font = ExtResource("3_qsy6q")
+font_size = 64
+font_color = Color(1, 0.827451, 1, 1)
+outline_size = 4
+outline_color = Color(0.67451, 0, 0.67451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s3c00"]
+font = ExtResource("4_2cq3b")
+font_size = 64
+font_color = Color(1, 0.823529, 1, 1)
+outline_size = 2
+outline_color = Color(0.545098, 0, 0.545098, 1)
+shadow_color = Color(0, 0, 0, 0.898039)
+shadow_offset = Vector2(2, 2)
 
 [node name="Game" type="Node"]
+script = ExtResource("1_pj6c4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_right = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 0)
+color = Color(0, 0, 0, 0.25098)
 
 [node name="Grid" type="Node2D" parent="."]
 script = ExtResource("1")
@@ -34,3 +69,39 @@ offset_right = 22.0
 offset_bottom = 980.0
 grow_horizontal = 0
 color = Color(1, 1, 1, 0.882353)
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.5
+offset_top = 16.0
+offset_right = 27.5
+offset_bottom = 52.0
+grow_horizontal = 2
+text = "000000000"
+label_settings = SubResource("LabelSettings_4vfjx")
+horizontal_alignment = 1
+
+[node name="ComboLabel" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 200.0
+text = "Combo
+1"
+label_settings = SubResource("LabelSettings_s3c00")
+horizontal_alignment = 1
+
+[node name="RushNotif" type="TextureRect" parent="."]
+offset_left = 208.0
+offset_top = 64.0
+offset_right = 336.0
+offset_bottom = 192.0
+texture = ExtResource("5_1f72l")
+
+[node name="Conductor" parent="." instance=ExtResource("7_p2l4p")]
+stream = ExtResource("8_h8pq6")
+
+[connection signal="beat" from="Conductor" to="." method="_on_conductor_beat"]
+[connection signal="current_measure" from="Conductor" to="." method="_on_conductor_current_measure"]

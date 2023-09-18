@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn0tdtiwdbldo"]
+[gd_scene load_steps=3 format=3 uid="uid://cn0tdtiwdbldo"]
+
+[ext_resource type="Script" path="res://Scripts/note.gd" id="1_tgvyq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ox3c"]
 size = Vector2(32, 8)
 
-[node name="Note" type="Area2D"]
+[node name="Note" type="Node2D" groups=["note"]]
+script = ExtResource("1_tgvyq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -19,7 +22,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.815686)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["note"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_5ox3c")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.053
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
