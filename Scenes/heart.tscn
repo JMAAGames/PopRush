@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw5xgwkntkcm5"]
+
+[ext_resource type="Texture2D" uid="uid://dbx2nky144ku4" path="res://Assets/Beat Heart/tile000.png" id="1_ubk63"]
+[ext_resource type="Texture2D" uid="uid://dibjkyd1f5mp3" path="res://Assets/Beat Heart/tile001.png" id="2_giksj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dirkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ubk63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_giksj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8cn7"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_koaeq"]
+size = Vector2(32, 4)
+
+[node name="Heart" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_dirkc")
+
+[node name="ActionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea"]
+shape = SubResource("RectangleShape2D_h8cn7")
+
+[node name="DoneArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoneArea"]
+shape = SubResource("RectangleShape2D_koaeq")
+
+[node name="PushTimer" type="Timer" parent="."]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cctfl56jdegjk"
+path="res://.godot/imported/02 - Hi Daddy.ogg-eb9be9c61b25cc58318d70a9ce2af1e0.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/02 - Hi Daddy.ogg"
+dest_files=["res://.godot/imported/02 - Hi Daddy.ogg-eb9be9c61b25cc58318d70a9ce2af1e0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

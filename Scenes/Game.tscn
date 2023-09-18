@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://ynpouyser6kn"]
+
+[ext_resource type="Script" path="res://Scripts/Grid.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bw5xgwkntkcm5" path="res://Scenes/heart.tscn" id="2_wx6cv"]
+
+[node name="Game" type="Node"]
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("1")
+width = 7
+height = 7
+offset = 70
+y_offset = -2
+empty_spaces = PackedVector2Array(0, 0, 0, 6, 6, 6, 6, 0, 2, 3, 3, 3, 4, 3)
+
+[node name="Heart" parent="." instance=ExtResource("2_wx6cv")]
+position = Vector2(1780, 1030)
+
+[node name="Road" type="Node2D" parent="."]
+position = Vector2(1780, 50)
+
+[node name="ColorRect" type="ColorRect" parent="Road"]
+offset_left = -22.0
+offset_right = -18.0
+offset_bottom = 980.0
+color = Color(1, 1, 1, 0.882353)
+
+[node name="ColorRect2" type="ColorRect" parent="Road"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 18.0
+offset_right = 22.0
+offset_bottom = 980.0
+grow_horizontal = 0
+color = Color(1, 1, 1, 0.882353)

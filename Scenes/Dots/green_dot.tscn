@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://by1rpu5d4v2p1"]
+
+[ext_resource type="PackedScene" uid="uid://d0bsiknlebs18" path="res://Scenes/Dot.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://bjujmal0biavv" path="res://Assets/Poppers/tile004.png" id="2_ufb2t"]
+
+[node name="green_dot" instance=ExtResource("2")]
+color = "green"
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_ufb2t")
