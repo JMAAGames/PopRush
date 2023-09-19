@@ -208,7 +208,7 @@ func match_and_dim(item):
 	item.matched = true
 	item.dim()
 	if get_parent().get_node("Heart")._current_note_status() != null:
-		if get_parent().get_node("Heart")._action_status() == true:
+		if get_parent().get_node("Heart")._action_status() == true && get_parent().get_node("Heart")._done_status() == false:
 			get_parent().increment_score(1)
 			get_parent().get_node("Heart")._current_note_status().get_parent().destroy()
 			get_parent().get_node("Heart")._reset()

@@ -1,13 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://ynpouyser6kn"]
+[gd_scene load_steps=18 format=3 uid="uid://ynpouyser6kn"]
 
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1"]
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_pj6c4"]
+[ext_resource type="Shader" path="res://Shaders/add.gdshader" id="2_idggd"]
+[ext_resource type="VideoStream" path="res://Assets/Video/strobes3.ogv" id="2_t7qp0"]
 [ext_resource type="PackedScene" uid="uid://bw5xgwkntkcm5" path="res://Scenes/heart.tscn" id="2_wx6cv"]
 [ext_resource type="FontFile" uid="uid://bkrdi1j8tdpx8" path="res://Fonts/ESTROG__.ttf" id="3_qsy6q"]
 [ext_resource type="FontFile" uid="uid://d2cy3jsqfhs26" path="res://Fonts/GiveAHootBlk.otf" id="4_2cq3b"]
 [ext_resource type="Texture2D" uid="uid://b563vsqsi7mfu" path="res://Assets/UI/rush.png" id="5_1f72l"]
 [ext_resource type="PackedScene" uid="uid://comj7d467aywp" path="res://Scenes/Conductor.tscn" id="7_p2l4p"]
 [ext_resource type="AudioStream" uid="uid://cctfl56jdegjk" path="res://Music/02 - Hi Daddy.ogg" id="8_h8pq6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ruk2f"]
+shader = ExtResource("2_idggd")
 
 [sub_resource type="LabelSettings" id="LabelSettings_4vfjx"]
 font = ExtResource("3_qsy6q")
@@ -25,8 +30,39 @@ outline_color = Color(0.545098, 0, 0.545098, 1)
 shadow_color = Color(0, 0, 0, 0.898039)
 shadow_offset = Vector2(2, 2)
 
+[sub_resource type="Gradient" id="Gradient_e8008"]
+colors = PackedColorArray(0, 0, 0, 1, 0.15967, 0.15967, 0.15967, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8rnxn"]
+gradient = SubResource("Gradient_e8008")
+width = 512
+fill_from = Vector2(0.488673, 0)
+fill_to = Vector2(0.491909, 1)
+
+[sub_resource type="Gradient" id="Gradient_tjbbs"]
+colors = PackedColorArray(0.996078, 0, 0.384314, 1, 1, 0.745098, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lwubf"]
+gradient = SubResource("Gradient_tjbbs")
+width = 506
+height = 58
+fill_from = Vector2(0.517799, 1)
+fill_to = Vector2(0.508091, 0)
+
 [node name="Game" type="Node"]
 script = ExtResource("1_pj6c4")
+
+[node name="BGColor" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.109804, 0, 0.109804, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+material = SubResource("ShaderMaterial_ruk2f")
+offset_right = 1920.0
+offset_bottom = 1088.0
+stream = ExtResource("2_t7qp0")
+autoplay = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 13
@@ -48,9 +84,6 @@ offset = 70
 y_offset = -2
 empty_spaces = PackedVector2Array(0, 0, 0, 6, 6, 6, 6, 0, 2, 3, 3, 3, 4, 3)
 
-[node name="Heart" parent="." instance=ExtResource("2_wx6cv")]
-position = Vector2(1780, 1030)
-
 [node name="Road" type="Node2D" parent="."]
 position = Vector2(1780, 50)
 
@@ -69,6 +102,9 @@ offset_right = 22.0
 offset_bottom = 980.0
 grow_horizontal = 0
 color = Color(1, 1, 1, 0.882353)
+
+[node name="Heart" parent="." instance=ExtResource("2_wx6cv")]
+position = Vector2(1780, 1030)
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchors_preset = 5
@@ -103,5 +139,21 @@ texture = ExtResource("5_1f72l")
 [node name="Conductor" parent="." instance=ExtResource("7_p2l4p")]
 stream = ExtResource("8_h8pq6")
 
+[node name="StaminaMeter" type="TextureProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_top = 63.935
+offset_right = 256.002
+offset_bottom = 103.935
+grow_horizontal = 2
+pivot_offset = Vector2(256, 0)
+value = 100.0
+texture_under = SubResource("GradientTexture2D_8rnxn")
+texture_progress = SubResource("GradientTexture2D_lwubf")
+texture_progress_offset = Vector2(3, 3)
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="beat" from="Conductor" to="." method="_on_conductor_beat"]
 [connection signal="current_measure" from="Conductor" to="." method="_on_conductor_current_measure"]
