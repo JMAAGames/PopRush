@@ -70,6 +70,7 @@ func increment_score(by):
 		if combo > max_combo:
 			max_combo = combo
 			$RushNotif.visible = true
+			$SfxRush.play()
 	else:
 		$ComboLabel.text = ""
 		$RushNotif.visible = false

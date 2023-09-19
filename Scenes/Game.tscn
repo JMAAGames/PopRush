@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ynpouyser6kn"]
+[gd_scene load_steps=20 format=3 uid="uid://ynpouyser6kn"]
 
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1"]
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_pj6c4"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://b563vsqsi7mfu" path="res://Assets/UI/rush.png" id="5_1f72l"]
 [ext_resource type="PackedScene" uid="uid://comj7d467aywp" path="res://Scenes/Conductor.tscn" id="7_p2l4p"]
 [ext_resource type="AudioStream" uid="uid://cctfl56jdegjk" path="res://Music/02 - Hi Daddy.ogg" id="8_h8pq6"]
+[ext_resource type="AudioStream" uid="uid://b1tqwnot5m8bx" path="res://Sounds/pop.wav" id="11_wn38w"]
+[ext_resource type="AudioStream" uid="uid://cmb6vqvmrlkma" path="res://Sounds/rush_active.wav" id="12_wvhym"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ruk2f"]
 shader = ExtResource("2_idggd")
@@ -138,6 +140,7 @@ texture = ExtResource("5_1f72l")
 
 [node name="Conductor" parent="." instance=ExtResource("7_p2l4p")]
 stream = ExtResource("8_h8pq6")
+bus = &"Music"
 
 [node name="StaminaMeter" type="TextureProgressBar" parent="."]
 anchors_preset = 5
@@ -153,6 +156,12 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_8rnxn")
 texture_progress = SubResource("GradientTexture2D_lwubf")
 texture_progress_offset = Vector2(3, 3)
+
+[node name="SfxPop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_wn38w")
+
+[node name="SfxRush" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_wvhym")
 
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="beat" from="Conductor" to="." method="_on_conductor_beat"]
