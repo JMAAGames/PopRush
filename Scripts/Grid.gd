@@ -212,7 +212,13 @@ func match_and_dim(item):
 			get_parent().increment_score(1)
 			get_parent().get_node("Heart")._current_note_status().get_parent().destroy()
 			get_parent().get_node("Heart")._reset()
+		elif get_parent().get_node("Heart")._action_status() == true && get_parent().get_node("Heart")._done_status() == true:
+			get_parent().increment_score(0)
 		else:
+			get_parent().increment_score(0)
+	else:
+		if get_parent().get_node("Heart")._action_status() == false && get_parent().get_node("Heart")._done_status() == true:
+			print("What " + str(get_parent().get_node("Heart")._current_note_status()))
 			get_parent().increment_score(0)
 
 func destroy_matches():

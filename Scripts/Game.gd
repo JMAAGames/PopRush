@@ -41,7 +41,7 @@ func _process(delta):
 	#update the stamina bar
 	$StaminaMeter.value = current_stamina
 	
-	print(current_stamina)
+	# print(current_stamina)
 
 func increment_score(by):
 	if by > 0:
@@ -72,6 +72,7 @@ func increment_score(by):
 			$RushNotif.visible = true
 	else:
 		$ComboLabel.text = ""
+		$RushNotif.visible = false
 
 func reset_combo():
 	combo = 0
