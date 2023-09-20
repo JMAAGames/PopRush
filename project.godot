@@ -25,6 +25,10 @@ window/stretch/mode="2d"
 window/stretch/aspect="keep_width"
 window/handheld/orientation="portrait"
 
+[editor]
+
+movie_writer/movie_file="D:/gamedev/poprush great service/poprush_video.avi"
+
 [input]
 
 ui_touch={

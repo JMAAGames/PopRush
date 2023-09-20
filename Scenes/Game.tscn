@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1"]
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_pj6c4"]
 [ext_resource type="Shader" path="res://Shaders/add.gdshader" id="2_idggd"]
-[ext_resource type="VideoStream" path="res://Assets/Video/strobes3.ogv" id="2_t7qp0"]
 [ext_resource type="PackedScene" uid="uid://bw5xgwkntkcm5" path="res://Scenes/heart.tscn" id="2_wx6cv"]
+[ext_resource type="VideoStream" path="res://Assets/Video/colors.ogv" id="3_ou0fm"]
 [ext_resource type="FontFile" uid="uid://bkrdi1j8tdpx8" path="res://Fonts/ESTROG__.ttf" id="3_qsy6q"]
 [ext_resource type="FontFile" uid="uid://d2cy3jsqfhs26" path="res://Fonts/GiveAHootBlk.otf" id="4_2cq3b"]
 [ext_resource type="Texture2D" uid="uid://b563vsqsi7mfu" path="res://Assets/UI/rush.png" id="5_1f72l"]
@@ -63,8 +63,9 @@ color = Color(0.109804, 0, 0.109804, 1)
 material = SubResource("ShaderMaterial_ruk2f")
 offset_right = 1920.0
 offset_bottom = 1088.0
-stream = ExtResource("2_t7qp0")
+stream = ExtResource("3_ou0fm")
 autoplay = true
+expand = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 13
