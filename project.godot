@@ -27,7 +27,7 @@ window/handheld/orientation="portrait"
 
 [editor]
 
-movie_writer/movie_file="D:/gamedev/poprush great service/poprush_video.avi"
+movie_writer/movie_file="D:/gamedev/poprush great service/poprush_video2.avi"
 
 [input]
 
@@ -40,4 +40,5 @@ ui_touch={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
 environment/defaults/default_environment="res://default_env.tres"

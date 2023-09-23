@@ -30,6 +30,8 @@ var instance
 
 func _ready():
 	$Conductor.play_with_beat_offset(4)
+	$FuckAnim.speed_scale = bpm / 100
+	$FuckAnim.play()
 	reset_combo()
 
 func _process(delta):
