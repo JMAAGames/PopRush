@@ -9,7 +9,7 @@ const LANE_SPAWN = Vector2(1780, SPAWN_Y)
 var speed = 0
 var hit = false
 
-func _physics_process(delta):
+func _process(delta):
 	if !hit:
 		position.y += speed * delta
 	else:

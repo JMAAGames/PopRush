@@ -15,6 +15,9 @@ const MAX_STAMINA = 100
 
 var bpm = 126
 
+var current_track
+var level = 1
+
 var song_position = 0.0
 var song_position_in_beats = 0
 var last_spawned_beat = 0
@@ -27,15 +30,58 @@ var lane = 0
 var note = load("res://Scenes/note.tscn")
 var instance
 
+var current_normal_anim = "marie_blowjob_normal"
+var current_rush_anim = "marie_blowjob_rush"
+var current_cum_anim = "marie_blowjob_cum"
+
+var current_anim_frame = 0
 
 func _ready():
-	$Conductor.play_with_beat_offset(4)
+	
+	current_stamina = 100
+	randomize()
+	current_track = randi() % MusicTrackData.total_tracks
+	bpm = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_BPM]
+	get_node("Conductor").bpm = bpm
+	get_node("Grid").bpm = bpm
+	
+	var audio_track = load(MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_PATH])
+	$Conductor.stream = audio_track
+	$TrackLabel.text = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_TITLE] + "\n" + MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_ARTIST]
+	
+	$LevelLabel.text = "Level " + str(level)
+	
+	$Conductor._reset_positions()
+	$Conductor.play_from_beat(0, 4)
 	$FuckAnim.speed_scale = bpm / 100
 	$FuckAnim.play()
+	$FuckAnim.animation = current_normal_anim
+	reset_combo()
+
+func _advance_level():
+	level += 1
+	current_stamina = 100
+	randomize()
+	current_track = randi() % MusicTrackData.total_tracks
+	bpm = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_BPM]
+	get_node("Conductor").bpm = bpm
+	get_node("Grid").bpm = bpm
+	
+	var audio_track = load(MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_PATH])
+	$Conductor.stream = audio_track
+	$TrackLabel.text = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_TITLE] + "\n" + MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_ARTIST]
+	
+	$LevelLabel.text = "Level " + str(level)
+	
+	$Conductor._reset_positions()
+	$Conductor.play_from_beat(0, 4)
+	$FuckAnim.speed_scale = bpm / 100
+	$FuckAnim.play()
+	$FuckAnim.animation = current_normal_anim
 	reset_combo()
 
 func _process(delta):
-	current_stamina -= BASE_STAMINA_SPEED * delta
+	current_stamina -= (BASE_STAMINA_SPEED * level) * delta
 	
 	#don't you dare go below 0
 	current_stamina = max(current_stamina, 0)
@@ -43,6 +89,7 @@ func _process(delta):
 	#update the stamina bar
 	$StaminaMeter.value = current_stamina
 	
+	# current_anim_frame = $FuckAnim.frame # Turns out this might be resource intensive
 	# print(current_stamina)
 
 func increment_score(by):
@@ -72,14 +119,26 @@ func increment_score(by):
 		if combo > max_combo:
 			max_combo = combo
 			$RushNotif.visible = true
+			current_anim_frame = $FuckAnim.frame
+			$FuckAnim.animation = current_rush_anim
+			$FuckAnim.frame = current_anim_frame
+			$FuckAnim.play()
 			$SfxRush.play()
 	else:
 		$ComboLabel.text = ""
+		current_anim_frame = $FuckAnim.frame
+		$FuckAnim.animation = current_normal_anim
+		$FuckAnim.frame = current_anim_frame
+		$FuckAnim.play()
 		$RushNotif.visible = false
 
 func reset_combo():
 	combo = 0
 	$ComboLabel.text = ""
+	current_anim_frame = $FuckAnim.frame
+	$FuckAnim.animation = current_normal_anim
+	$FuckAnim.frame = current_anim_frame
+	$FuckAnim.play()
 	$RushNotif.visible = false
 
 func _spawn_notes(to_spawn):
@@ -102,3 +161,7 @@ func _on_conductor_beat(position):
 
 func _on_video_stream_player_finished():
 	$VideoStreamPlayer.play()
+
+
+func _on_conductor_finished():
+	_advance_level()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d7704jg8oax8"
+path="res://.godot/imported/09 - Toys For Adults.ogg-28660def7a9b5fe281d183aa3cf08a72.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/09 - Toys For Adults.ogg"
+dest_files=["res://.godot/imported/09 - Toys For Adults.ogg-28660def7a9b5fe281d183aa3cf08a72.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

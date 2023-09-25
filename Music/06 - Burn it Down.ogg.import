@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://di7qwrt2ohxqr"
+path="res://.godot/imported/06 - Burn it Down.ogg-026e73f04306d7d1afa8fc9ea76d34d5.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/06 - Burn it Down.ogg"
+dest_files=["res://.godot/imported/06 - Burn it Down.ogg-026e73f04306d7d1afa8fc9ea76d34d5.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cajh0qme551yn"
+path="res://.godot/imported/12 - More Funk Than Funkin'.ogg-d34b1013d8d40aa0e4646c5504afc2f6.oggvorbisstr"
+
+[deps]
+
+source_file="res://Music/12 - More Funk Than Funkin'.ogg"
+dest_files=["res://.godot/imported/12 - More Funk Than Funkin'.ogg-d34b1013d8d40aa0e4646c5504afc2f6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

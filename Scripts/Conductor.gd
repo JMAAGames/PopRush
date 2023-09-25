@@ -21,12 +21,16 @@ signal current_measure(position)
 func _ready():
 	sec_per_beat = 60.0 / bpm
 
-func _physics_process(delta):
+func _process(delta):
 	if playing:
 		song_position = get_playback_position() + AudioServer.get_time_since_last_mix()
 		song_position -= AudioServer.get_output_latency()
 		song_position_in_beats = int(floor(song_position / sec_per_beat)) + beats_before_start
 		_report_beat()
+
+func _reset_positions():
+	song_position = 0.0
+	song_position_in_beats = 1
 
 func _report_beat():
 	if last_reported_beat < song_position_in_beats:
@@ -40,9 +44,9 @@ func _report_beat():
 func play_with_beat_offset(num):
 	beats_before_start = num
 	$StartTimer.wait_time = sec_per_beat
-	print("Waiting: " + str($StartTimer.wait_time))
+	#print("Waiting: " + str($StartTimer.wait_time))
 	$StartTimer.start()
-	print("I entered")
+	#print("I entered")
 
 func closest_beat(nth):
 	closest = int(round((song_position / sec_per_beat) / nth) * nth)
@@ -63,7 +67,7 @@ func _on_start_timer_timeout():
 		$StartTimer.wait_time = $StartTimer.wait_time - (AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency())
 		$StartTimer.start()
 	else:
-		print("I am playing")
+		#print("I am playing")
 		play()
 		$StartTimer.stop()
 	_report_beat()
