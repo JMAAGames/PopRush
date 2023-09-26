@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcb04v74f0ofq"]
+
+[ext_resource type="Script" path="res://Scripts/LoadingScreen.gd" id="1_afuh2"]
+[ext_resource type="Texture2D" uid="uid://dbx2nky144ku4" path="res://Assets/Beat Heart/tile000.png" id="2_jmgga"]
+[ext_resource type="Texture2D" uid="uid://dibjkyd1f5mp3" path="res://Assets/Beat Heart/tile001.png" id="3_g8mrn"]
+[ext_resource type="FontFile" uid="uid://d2cy3jsqfhs26" path="res://Fonts/GiveAHootBlk.otf" id="4_54c3p"]
+
+[sub_resource type="Animation" id="Animation_mgg45"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"safe_to_load"],
+"method": &"emit_signal"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_sbvem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gxtyx"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bsqfe"]
+_data = {
+"RESET": SubResource("Animation_sbvem"),
+"fade_in": SubResource("Animation_mgg45"),
+"fade_out": SubResource("Animation_gxtyx")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h1bkl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jmgga")
+}, {
+"duration": 0.5,
+"texture": ExtResource("3_g8mrn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nl17k"]
+font = ExtResource("4_54c3p")
+font_size = 246
+font_color = Color(1, 0.847059, 1, 1)
+
+[node name="LoadingScreen" type="CanvasLayer"]
+script = ExtResource("1_afuh2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fade_in"
+libraries = {
+"": SubResource("AnimationLibrary_bsqfe")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ColorRect"]
+position = Vector2(128, 128)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_h1bkl")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 256.0
+offset_right = 826.0
+offset_bottom = 250.0
+text = "Loading"
+label_settings = SubResource("LabelSettings_nl17k")

@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdnk4mhi2mihh"]
+
+[ext_resource type="Shader" path="res://Shaders/add.gdshader" id="1_4ma7u"]
+[ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_gpfkh"]
+[ext_resource type="VideoStream" path="res://Assets/Video/colors.ogv" id="2_5aiv6"]
+[ext_resource type="PackedScene" uid="uid://ynpouyser6kn" path="res://Scenes/Game.tscn" id="2_oqlhe"]
+[ext_resource type="Texture2D" uid="uid://bfe08kgkq5rsl" path="res://Assets/logo_v3.png" id="4_lyooe"]
+[ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="5_euu5s"]
+[ext_resource type="AudioStream" uid="uid://b1p5jpyi7rlms" path="res://Music/01 - Main Title - Great Service.ogg" id="7_tv7js"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbwrd"]
+shader = ExtResource("1_4ma7u")
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_gpfkh")
+arcadeModeScene = ExtResource("2_oqlhe")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.027451, 0.227451, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+process_mode = 1
+material = SubResource("ShaderMaterial_tbwrd")
+offset_right = 1920.0
+offset_bottom = 1088.0
+stream = ExtResource("2_5aiv6")
+autoplay = true
+expand = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 420.0
+offset_top = 93.0
+offset_right = 1500.0
+offset_bottom = 975.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_lyooe")
+stretch_mode = 5
+
+[node name="ArcadeModeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Arcade Mode"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Quit to Desktop"
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tv7js")
+autoplay = true
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ArcadeModeButton" to="." method="_on_arcade_mode_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="finished" from="MainMenuMusic" to="." method="_on_main_menu_music_finished"]

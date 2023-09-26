@@ -1,5 +1,9 @@
 extends Node
 
+class_name Game
+
+@export var mainMenuScene : PackedScene
+
 var score = 0
 var combo = 0
 
@@ -40,6 +44,16 @@ var current_rush_anim = "marie_blowjob_rush"
 var current_cum_anim = "marie_blowjob_cum"
 
 var current_anim_frame = 0
+
+signal toggle_game_paused(is_paused : bool)
+
+var game_paused : bool = false:
+	get:
+		return game_paused
+	set(value):
+		game_paused = value
+		get_tree().paused = game_paused
+		emit_signal("toggle_game_paused", game_paused)
 
 func _ready():
 	current_stamina = 100
@@ -105,19 +119,28 @@ func _advance_level():
 	reset_combo()
 
 func _process(delta):
-	current_stamina -= (BASE_STAMINA_SPEED * level) * delta
-	
-	#don't you dare go below 0
-	current_stamina = max(current_stamina, 0)
-	
-	#update the stamina bar
-	$StaminaMeter.value = current_stamina
-	
-	if current_stamina <= 0:
-		if !game_over:
-			_game_over()
+	if !game_paused: # let's not deplete it on the pause menu
+		var deplete_speed = min((BASE_STAMINA_SPEED * level), 25) * delta
+		
+		current_stamina -= deplete_speed # have a speed cap, for Jim Flynn's sake, nobody wants the stamina bar to deplete at the speed of light at some point
+		
+		#don't you dare go below 0
+		current_stamina = max(current_stamina, 0)
+		
+		#update the stamina bar
+		$StaminaMeter.value = current_stamina
+		
+		if current_stamina <= 0:
+			if !game_over:
+				_game_over()
 	# current_anim_frame = $FuckAnim.frame # Turns out this might be resource intensive
 	# print(current_stamina)
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		var current_value = get_tree().paused
+		game_paused = !game_paused
+		
 
 func increment_score(by):
 	if by > 0:
@@ -209,3 +232,8 @@ func _game_over():
 	$GameOverRect.visible = true
 	$GameOverRect/GameOverInfo.text = "Final score: " + str(score) + "\nHighest combo: " + str(max_combo) + "\nLevel: " + str(level)
 	$GameOverRect/GameOverAnim.play("GameOver")
+
+
+func _on_back_to_menu_button_go_pressed():
+	get_tree().change_scene_to_packed(mainMenuScene)
+	#Global.load_scene(self, "MainMenu")

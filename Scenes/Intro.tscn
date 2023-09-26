@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bj2etdktw58r1"]
+
+[ext_resource type="VideoStream" path="res://Assets/Video/jmaagames_logo.ogv" id="1_jtjeu"]
+[ext_resource type="Script" path="res://Scripts/Intro.gd" id="1_tgive"]
+[ext_resource type="PackedScene" uid="uid://bdnk4mhi2mihh" path="res://Scenes/MainMenu.tscn" id="2_rqm56"]
+
+[node name="Intro" type="CanvasLayer"]
+script = ExtResource("1_tgive")
+mainMenuScene = ExtResource("2_rqm56")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_jtjeu")
+autoplay = true
+expand = true
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

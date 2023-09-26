@@ -6,6 +6,7 @@
 size = Vector2(32, 8)
 
 [node name="Note" type="Node2D" groups=["note"]]
+process_mode = 1
 script = ExtResource("1_tgvyq")
 
 [node name="ColorRect" type="ColorRect" parent="."]

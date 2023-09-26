@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlemri5icu67m"]
+
+[ext_resource type="FontFile" uid="uid://d2cy3jsqfhs26" path="res://Fonts/GiveAHootBlk.otf" id="1_nognq"]
+[ext_resource type="Script" path="res://Scripts/UI/pause_menu.gd" id="1_xj6sm"]
+[ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="2_71nhe"]
+[ext_resource type="PackedScene" uid="uid://bdnk4mhi2mihh" path="res://Scenes/MainMenu.tscn" id="2_gcddl"]
+[ext_resource type="AudioStream" uid="uid://b43mpvubh810j" path="res://Music/11 - Augh! Gimme a Break! (Pause Menu).ogg" id="4_5o47d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_abx0p"]
+font = ExtResource("1_nognq")
+font_size = 146
+font_color = Color(0.996078, 0.729412, 1, 1)
+shadow_color = Color(0, 0, 0, 0.772549)
+shadow_offset = Vector2(3.845, 3.955)
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xj6sm")
+mainMenuScene = ExtResource("2_gcddl")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.0
+offset_top = -251.0
+offset_right = 281.0
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.5
+offset_top = -75.0
+offset_right = 154.5
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "PAUSE!"
+label_settings = SubResource("LabelSettings_abx0p")
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_71nhe")
+text = "Resume Game"
+
+[node name="BackToMenuButton_Pause" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_71nhe")
+text = "Back to Menu"
+
+[node name="PauseMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5o47d")
+
+[connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/BackToMenuButton_Pause" to="." method="_on_back_to_menu_button_pause_pressed"]
+[connection signal="finished" from="PauseMenuMusic" to="." method="_on_pause_menu_music_finished"]
