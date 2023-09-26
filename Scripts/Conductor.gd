@@ -29,6 +29,10 @@ func _process(delta):
 		_report_beat()
 
 func _reset_positions():
+	sec_per_beat = 60.0 / bpm #surely the bpm has already changed by now...
+	
+	last_reported_beat = 0
+	
 	song_position = 0.0
 	song_position_in_beats = 1
 

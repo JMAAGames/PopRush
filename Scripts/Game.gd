@@ -9,7 +9,7 @@ var max_combo = 0
 var hit = 0
 var miss = 0
 
-const BASE_STAMINA_SPEED = 2
+const BASE_STAMINA_SPEED = 1
 var current_stamina = 100
 const MAX_STAMINA = 100
 
@@ -17,6 +17,11 @@ var bpm = 126
 
 var current_track
 var level = 1
+
+var level_ready = false
+var truly_ready = false
+
+var game_over = false
 
 var song_position = 0.0
 var song_position_in_beats = 0
@@ -37,8 +42,9 @@ var current_cum_anim = "marie_blowjob_cum"
 var current_anim_frame = 0
 
 func _ready():
-	
 	current_stamina = 100
+	$GetReady/AnimationPlayer.play("GetReady_default")
+	
 	randomize()
 	current_track = randi() % MusicTrackData.total_tracks
 	bpm = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_BPM]
@@ -52,7 +58,7 @@ func _ready():
 	$LevelLabel.text = "Level " + str(level)
 	
 	$Conductor._reset_positions()
-	$Conductor.play_from_beat(0, 4)
+	$Conductor.play_with_beat_offset(4)
 	$FuckAnim.speed_scale = bpm / 100
 	$FuckAnim.play()
 	$FuckAnim.animation = current_normal_anim
@@ -61,6 +67,24 @@ func _ready():
 func _advance_level():
 	level += 1
 	current_stamina = 100
+	level_ready = true
+	
+	current_anim_frame = $FuckAnim.frame
+	$FuckAnim.animation = current_cum_anim
+	$FuckAnim.frame = current_anim_frame
+	$FuckAnim.play()
+	
+	$GetReady/AnimationPlayer.play("GetReady_default")
+	
+	while level_ready:
+		if !truly_ready:
+			level_ready = false
+	
+	current_anim_frame = $FuckAnim.frame
+	$FuckAnim.animation = current_normal_anim
+	$FuckAnim.frame = current_anim_frame
+	$FuckAnim.play()
+	
 	randomize()
 	current_track = randi() % MusicTrackData.total_tracks
 	bpm = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_BPM]
@@ -74,7 +98,7 @@ func _advance_level():
 	$LevelLabel.text = "Level " + str(level)
 	
 	$Conductor._reset_positions()
-	$Conductor.play_from_beat(0, 4)
+	$Conductor.play_with_beat_offset(4)
 	$FuckAnim.speed_scale = bpm / 100
 	$FuckAnim.play()
 	$FuckAnim.animation = current_normal_anim
@@ -89,6 +113,9 @@ func _process(delta):
 	#update the stamina bar
 	$StaminaMeter.value = current_stamina
 	
+	if current_stamina <= 0:
+		if !game_over:
+			_game_over()
 	# current_anim_frame = $FuckAnim.frame # Turns out this might be resource intensive
 	# print(current_stamina)
 
@@ -164,4 +191,21 @@ func _on_video_stream_player_finished():
 
 
 func _on_conductor_finished():
-	_advance_level()
+	if game_over == false:
+		_advance_level()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	truly_ready = false
+
+func _game_over():
+	game_over = true
+	
+	$Conductor.stop()
+	$FuckAnim.stop()
+	
+	$GameOverSFX.play()
+	
+	$GameOverRect.visible = true
+	$GameOverRect/GameOverInfo.text = "Final score: " + str(score) + "\nHighest combo: " + str(max_combo) + "\nLevel: " + str(level)
+	$GameOverRect/GameOverAnim.play("GameOver")

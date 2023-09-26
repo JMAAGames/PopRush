@@ -1,4 +1,4 @@
-[gd_scene load_steps=746 format=3 uid="uid://ynpouyser6kn"]
+[gd_scene load_steps=758 format=3 uid="uid://ynpouyser6kn"]
 
 [ext_resource type="Script" path="res://Scripts/Grid.gd" id="1"]
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_pj6c4"]
@@ -736,6 +736,8 @@
 [ext_resource type="Texture2D" uid="uid://rfolydnp1xny" path="res://Assets/Animation/Marie/Blowjob/Rush/marie_0001_blowjob(1)_00178.png" id="544_ka6nv"]
 [ext_resource type="Texture2D" uid="uid://b6m3lg6knlcpx" path="res://Assets/Animation/Marie/Blowjob/Rush/marie_0001_blowjob(1)_00179.png" id="545_f4iis"]
 [ext_resource type="Texture2D" uid="uid://bxr3on3ermnyc" path="res://Assets/Animation/Marie/Blowjob/Rush/marie_0001_blowjob(1)_00180.png" id="546_7c3xx"]
+[ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="737_y8kuc"]
+[ext_resource type="AudioStream" uid="uid://d21e4fmdb7lem" path="res://Sounds/game_over.wav" id="738_xwyqu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ruk2f"]
 shader = ExtResource("2_idggd")
@@ -2976,6 +2978,148 @@ height = 58
 fill_from = Vector2(0.517799, 1)
 fill_to = Vector2(0.508091, 0)
 
+[sub_resource type="LabelSettings" id="LabelSettings_dwd44"]
+font = ExtResource("4_2cq3b")
+font_size = 101
+font_color = Color(1, 0.807843, 1, 1)
+shadow_color = Color(0, 0, 0, 0.905882)
+shadow_offset = Vector2(1.06, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qkh4e"]
+font = ExtResource("4_2cq3b")
+font_size = 56
+
+[sub_resource type="Animation" id="Animation_8ouly"]
+resource_name = "GameOver"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.125, 1.125), Vector2(0.955, 0.955), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xvqmp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.125, 1.125)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nyk7c"]
+_data = {
+"GameOver": SubResource("Animation_8ouly"),
+"RESET": SubResource("Animation_xvqmp")
+}
+
+[sub_resource type="Gradient" id="Gradient_1typt"]
+offsets = PackedFloat32Array(0, 0.523605, 1)
+colors = PackedColorArray(1, 0, 0.890196, 0, 1, 1, 1, 0.545098, 1, 0.317647, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3sjhd"]
+gradient = SubResource("Gradient_1typt")
+fill_from = Vector2(0.498471, 1)
+fill_to = Vector2(0.501529, 0)
+
+[sub_resource type="Animation" id="Animation_ltsvr"]
+resource_name = "GetReady_default"
+length = 3.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.565, 1.565), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.9, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hupvi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n7b6f"]
+_data = {
+"GetReady_default": SubResource("Animation_ltsvr"),
+"RESET": SubResource("Animation_hupvi")
+}
+
 [node name="Game" type="Node"]
 script = ExtResource("1_pj6c4")
 
@@ -3117,11 +3261,129 @@ texture_progress_offset = Vector2(3, 3)
 
 [node name="SfxPop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_wn38w")
+bus = &"Sfx"
 
 [node name="SfxRush" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_wvhym")
+bus = &"Sfx"
+
+[node name="GameOverRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_right = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.125, 1.125)
+pivot_offset = Vector2(320, 0)
+color = Color(0, 0, 0, 0.921569)
+
+[node name="Label" type="Label" parent="GameOverRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.0
+offset_top = 22.865
+offset_right = 237.0
+offset_bottom = 127.865
+grow_horizontal = 2
+text = "Game Over, hun!"
+label_settings = SubResource("LabelSettings_dwd44")
+horizontal_alignment = 1
+
+[node name="GameOverInfo" type="Label" parent="GameOverRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.0
+offset_top = 112.6
+offset_right = 237.0
+offset_bottom = 217.6
+grow_horizontal = 2
+text = "Final score: 0
+Highest combo: 0
+Level: 1"
+label_settings = SubResource("LabelSettings_qkh4e")
+
+[node name="BackToMenuButton_GO" type="Button" parent="GameOverRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -91.5
+offset_top = -95.895
+offset_right = 91.5
+offset_bottom = -40.8943
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("737_y8kuc")
+text = "Back to Menu"
+
+[node name="GameOverAnim" type="AnimationPlayer" parent="GameOverRect"]
+libraries = {
+"": SubResource("AnimationLibrary_nyk7c")
+}
+
+[node name="GetReady" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="TextureRect" parent="GetReady"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -32.0
+offset_right = 128.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_3sjhd")
+
+[node name="GetReadyLabel" type="Label" parent="GetReady"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.5
+offset_top = -33.0
+offset_right = 104.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GET READY!"
+label_settings = SubResource("LabelSettings_s3c00")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GetReady"]
+libraries = {
+"": SubResource("AnimationLibrary_n7b6f")
+}
+
+[node name="GameOverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("738_xwyqu")
+bus = &"Sfx"
 
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="beat" from="Conductor" to="." method="_on_conductor_beat"]
 [connection signal="current_measure" from="Conductor" to="." method="_on_conductor_current_measure"]
 [connection signal="finished" from="Conductor" to="." method="_on_conductor_finished"]
+[connection signal="animation_finished" from="GetReady/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
