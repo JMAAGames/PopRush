@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlemri5icu67m"]
+[gd_scene load_steps=6 format=3 uid="uid://dlemri5icu67m"]
 
 [ext_resource type="FontFile" uid="uid://d2cy3jsqfhs26" path="res://Fonts/GiveAHootBlk.otf" id="1_nognq"]
 [ext_resource type="Script" path="res://Scripts/UI/pause_menu.gd" id="1_xj6sm"]
 [ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="2_71nhe"]
-[ext_resource type="PackedScene" uid="uid://bdnk4mhi2mihh" path="res://Scenes/MainMenu.tscn" id="2_gcddl"]
 [ext_resource type="AudioStream" uid="uid://b43mpvubh810j" path="res://Music/11 - Augh! Gimme a Break! (Pause Menu).ogg" id="4_5o47d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_abx0p"]
@@ -21,7 +20,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xj6sm")
-mainMenuScene = ExtResource("2_gcddl")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

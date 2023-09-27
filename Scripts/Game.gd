@@ -2,8 +2,6 @@ extends Node
 
 class_name Game
 
-@export var mainMenuScene : PackedScene
-
 var score = 0
 var combo = 0
 
@@ -39,6 +37,8 @@ var lane = 0
 var note = load("res://Scenes/note.tscn")
 var instance
 
+var current_character = AnimationData.MARIE
+
 var current_normal_anim = "marie_blowjob_normal"
 var current_rush_anim = "marie_blowjob_rush"
 var current_cum_anim = "marie_blowjob_cum"
@@ -56,10 +56,25 @@ var game_paused : bool = false:
 		emit_signal("toggle_game_paused", game_paused)
 
 func _ready():
+	randomize()
+	
+	var random_animation : int
+	
+	match current_character:
+		AnimationData.MARIE:
+			random_animation = randi() % AnimationData.marie_animations
+	
+	current_normal_anim = AnimationData.animations[current_character][random_animation][AnimationData.NORMAL]
+	current_rush_anim = AnimationData.animations[current_character][random_animation][AnimationData.RUSH]
+	current_cum_anim = AnimationData.animations[current_character][random_animation][AnimationData.CUM]
+	
+	$FuckAnim.animation = current_normal_anim
+	$FuckAnim.frame = current_anim_frame
+	$FuckAnim.play()
+	
 	current_stamina = 100
 	$GetReady/AnimationPlayer.play("GetReady_default")
 	
-	randomize()
 	current_track = randi() % MusicTrackData.total_tracks
 	bpm = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_BPM]
 	get_node("Conductor").bpm = bpm
@@ -90,16 +105,30 @@ func _advance_level():
 	
 	$GetReady/AnimationPlayer.play("GetReady_default")
 	
-	while level_ready:
-		if !truly_ready:
-			level_ready = false
+	await $GetReady/AnimationPlayer.animation_finished
+	
+	#while level_ready:
+	#	if !truly_ready:
+	#		level_ready = false
+	
+	randomize()
+	
+	var random_animation : int
+	
+	match current_character:
+		AnimationData.MARIE:
+			random_animation = randi() % AnimationData.marie_animations
+	
+	current_normal_anim = AnimationData.animations[current_character][random_animation][AnimationData.NORMAL]
+	current_rush_anim = AnimationData.animations[current_character][random_animation][AnimationData.RUSH]
+	current_cum_anim = AnimationData.animations[current_character][random_animation][AnimationData.CUM]
 	
 	current_anim_frame = $FuckAnim.frame
 	$FuckAnim.animation = current_normal_anim
 	$FuckAnim.frame = current_anim_frame
 	$FuckAnim.play()
 	
-	randomize()
+	
 	current_track = randi() % MusicTrackData.total_tracks
 	bpm = MusicTrackData.music_track_data[current_track][MusicTrackData.KEY_BPM]
 	get_node("Conductor").bpm = bpm
@@ -235,5 +264,5 @@ func _game_over():
 
 
 func _on_back_to_menu_button_go_pressed():
-	get_tree().change_scene_to_packed(mainMenuScene)
+	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	#Global.load_scene(self, "MainMenu")

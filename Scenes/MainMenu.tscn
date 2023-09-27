@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdnk4mhi2mihh"]
+[gd_scene load_steps=8 format=3 uid="uid://bdnk4mhi2mihh"]
 
 [ext_resource type="Shader" path="res://Shaders/add.gdshader" id="1_4ma7u"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_gpfkh"]
 [ext_resource type="VideoStream" path="res://Assets/Video/colors.ogv" id="2_5aiv6"]
-[ext_resource type="PackedScene" uid="uid://ynpouyser6kn" path="res://Scenes/Game.tscn" id="2_oqlhe"]
 [ext_resource type="Texture2D" uid="uid://bfe08kgkq5rsl" path="res://Assets/logo_v3.png" id="4_lyooe"]
 [ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="5_euu5s"]
 [ext_resource type="AudioStream" uid="uid://b1p5jpyi7rlms" path="res://Music/01 - Main Title - Great Service.ogg" id="7_tv7js"]
@@ -13,7 +12,6 @@ shader = ExtResource("1_4ma7u")
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_gpfkh")
-arcadeModeScene = ExtResource("2_oqlhe")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

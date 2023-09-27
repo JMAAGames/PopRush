@@ -1,7 +1,6 @@
 extends Control
 
 @export var game : Game
-@export var mainMenuScene : PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,5 +31,5 @@ func _on_pause_menu_music_finished():
 
 
 func _on_back_to_menu_button_pause_pressed():
-	get_tree().change_scene_to_packed(mainMenuScene)
+		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	#Global.load_scene(self, "MainMenu")
