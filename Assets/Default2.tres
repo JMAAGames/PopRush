@@ -96,3 +96,7 @@ Button/styles/focus = SubResource("StyleBoxFlat_8dkwj")
 Button/styles/hover = SubResource("StyleBoxFlat_5jxui")
 Button/styles/normal = SubResource("StyleBoxFlat_mq7c5")
 Button/styles/pressed = SubResource("StyleBoxFlat_ceb27")
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.890196)
+Label/constants/shadow_offset_x = 4
+Label/constants/shadow_offset_y = 4
+Label/font_sizes/font_size = 46

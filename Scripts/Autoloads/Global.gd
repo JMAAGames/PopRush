@@ -1,5 +1,13 @@
 extends Node
 
+var music_enabled : bool
+var fx_enabled : bool
+
+var music_volume : float
+var fx_volume : float
+
+var fullscreen : bool
+
 const GAME_SCENES = {
 	"ArcadeMode": "res://Scenes/Game.tscn",
 	"MainMenu": "res://Scenes/MainMenu.tscn"

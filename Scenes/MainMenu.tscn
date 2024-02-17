@@ -32,7 +32,7 @@ stream = ExtResource("2_5aiv6")
 autoplay = true
 expand = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MenuContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,29 +43,115 @@ offset_bottom = 975.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="MainMenuContainer" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MenuContainer/MainMenuContainer"]
 layout_mode = 2
 texture = ExtResource("4_lyooe")
 stretch_mode = 5
 
-[node name="ArcadeModeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ArcadeModeButton" type="Button" parent="MenuContainer/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("5_euu5s")
 text = "Arcade Mode"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="MenuContainer/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MenuContainer/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("5_euu5s")
 text = "Quit to Desktop"
 
+[node name="SettingsMenuContainer" type="VBoxContainer" parent="MenuContainer"]
+visible = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MenuContainer/SettingsMenuContainer"]
+layout_mode = 2
+texture = ExtResource("4_lyooe")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuContainer/SettingsMenuContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Fullscreen" type="CheckButton" parent="MenuContainer/SettingsMenuContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Fullscreen"
+
+[node name="Music" type="HBoxContainer" parent="MenuContainer/SettingsMenuContainer"]
+layout_mode = 2
+
+[node name="MusicCheck" type="CheckButton" parent="MenuContainer/SettingsMenuContainer/Music"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Music"
+
+[node name="MusicDb" type="HSlider" parent="MenuContainer/SettingsMenuContainer/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("5_euu5s")
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="MusicDbLabel" type="Label" parent="MenuContainer/SettingsMenuContainer/Music"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "100"
+
+[node name="FX" type="HBoxContainer" parent="MenuContainer/SettingsMenuContainer"]
+layout_mode = 2
+
+[node name="FXCheck" type="CheckButton" parent="MenuContainer/SettingsMenuContainer/FX"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Sound"
+
+[node name="FXDb" type="HSlider" parent="MenuContainer/SettingsMenuContainer/FX"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("5_euu5s")
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="FXDbLabel" type="Label" parent="MenuContainer/SettingsMenuContainer/FX"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "100"
+
+[node name="BackToMenuButton" type="Button" parent="MenuContainer/SettingsMenuContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Back to Main Menu"
+
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_tv7js")
 autoplay = true
+bus = &"Music"
 
+[connection signal="fx_audio_changed" from="." to="." method="_on_fx_audio_changed"]
+[connection signal="fx_toggled" from="." to="." method="_on_fx_toggled"]
+[connection signal="music_audio_changed" from="." to="." method="_on_music_audio_changed"]
+[connection signal="music_toggled" from="." to="." method="_on_music_toggled"]
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ArcadeModeButton" to="." method="_on_arcade_mode_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuContainer/ArcadeModeButton" to="." method="_on_arcade_mode_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="toggled" from="MenuContainer/SettingsMenuContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="MenuContainer/SettingsMenuContainer/Music/MusicCheck" to="." method="_on_music_check_toggled"]
+[connection signal="value_changed" from="MenuContainer/SettingsMenuContainer/Music/MusicDb" to="." method="_on_music_db_value_changed"]
+[connection signal="toggled" from="MenuContainer/SettingsMenuContainer/FX/FXCheck" to="." method="_on_fx_check_toggled"]
+[connection signal="value_changed" from="MenuContainer/SettingsMenuContainer/FX/FXDb" to="." method="_on_fx_db_value_changed"]
+[connection signal="pressed" from="MenuContainer/SettingsMenuContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
 [connection signal="finished" from="MainMenuMusic" to="." method="_on_main_menu_music_finished"]
