@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw2mlaxycngf6"]
+
+[ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="1_mrd45"]
+[ext_resource type="Script" path="res://Scripts/UI/score_entry.gd" id="2_7dl2q"]
+
+[node name="ScoreEntry" type="HBoxContainer"]
+offset_right = 1080.0
+offset_bottom = 47.0
+size_flags_horizontal = 3
+theme = ExtResource("1_mrd45")
+script = ExtResource("2_7dl2q")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[name]"
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2

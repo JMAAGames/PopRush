@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdnk4mhi2mihh"]
+[gd_scene load_steps=9 format=3 uid="uid://bdnk4mhi2mihh"]
 
 [ext_resource type="Shader" path="res://Shaders/add.gdshader" id="1_4ma7u"]
 [ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_gpfkh"]
 [ext_resource type="VideoStream" path="res://Assets/Video/colors.ogv" id="2_5aiv6"]
+[ext_resource type="PackedScene" uid="uid://bw2mlaxycngf6" path="res://Scenes/UI/score_entry.tscn" id="2_sqa73"]
 [ext_resource type="Texture2D" uid="uid://bfe08kgkq5rsl" path="res://Assets/logo_v3.png" id="4_lyooe"]
 [ext_resource type="Theme" uid="uid://cfd3pq7e4uxiy" path="res://Assets/Default2.tres" id="5_euu5s"]
 [ext_resource type="AudioStream" uid="uid://b1p5jpyi7rlms" path="res://Music/01 - Main Title - Great Service.ogg" id="7_tv7js"]
@@ -12,6 +13,7 @@ shader = ExtResource("1_4ma7u")
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_gpfkh")
+board_entry_scene = ExtResource("2_sqa73")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -55,6 +57,11 @@ stretch_mode = 5
 layout_mode = 2
 theme = ExtResource("5_euu5s")
 text = "Arcade Mode"
+
+[node name="LeaderboardsButton" type="Button" parent="MenuContainer/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Leaderboards"
 
 [node name="SettingsButton" type="Button" parent="MenuContainer/MainMenuContainer"]
 layout_mode = 2
@@ -135,6 +142,47 @@ layout_mode = 2
 theme = ExtResource("5_euu5s")
 text = "Back to Main Menu"
 
+[node name="LeaderboardsContainer" type="VBoxContainer" parent="MenuContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+
+[node name="HSLLabel" type="Label" parent="MenuContainer/LeaderboardsContainer"]
+layout_mode = 2
+text = "High Score Leaderboards"
+horizontal_alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="MenuContainer/LeaderboardsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_euu5s")
+
+[node name="NameHeader" type="Label" parent="MenuContainer/LeaderboardsContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Name"
+
+[node name="ScoreHeader" type="Label" parent="MenuContainer/LeaderboardsContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "High Score"
+horizontal_alignment = 2
+
+[node name="LeaderboardScroll" type="ScrollContainer" parent="MenuContainer/LeaderboardsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LeaderboardScoresContainer" type="VBoxContainer" parent="MenuContainer/LeaderboardsContainer/LeaderboardScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="BackToMenuButton" type="Button" parent="MenuContainer/LeaderboardsContainer"]
+layout_mode = 2
+theme = ExtResource("5_euu5s")
+text = "Back to Main Menu"
+
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_tv7js")
 autoplay = true
@@ -146,6 +194,7 @@ bus = &"Music"
 [connection signal="music_toggled" from="." to="." method="_on_music_toggled"]
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="pressed" from="MenuContainer/MainMenuContainer/ArcadeModeButton" to="." method="_on_arcade_mode_button_pressed"]
+[connection signal="pressed" from="MenuContainer/MainMenuContainer/LeaderboardsButton" to="." method="_on_leaderboards_button_pressed"]
 [connection signal="pressed" from="MenuContainer/MainMenuContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MenuContainer/MainMenuContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="toggled" from="MenuContainer/SettingsMenuContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
@@ -154,4 +203,5 @@ bus = &"Music"
 [connection signal="toggled" from="MenuContainer/SettingsMenuContainer/FX/FXCheck" to="." method="_on_fx_check_toggled"]
 [connection signal="value_changed" from="MenuContainer/SettingsMenuContainer/FX/FXDb" to="." method="_on_fx_db_value_changed"]
 [connection signal="pressed" from="MenuContainer/SettingsMenuContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="MenuContainer/LeaderboardsContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
 [connection signal="finished" from="MainMenuMusic" to="." method="_on_main_menu_music_finished"]

@@ -4814,6 +4814,38 @@ libraries = {
 "": SubResource("AnimationLibrary_nyk7c")
 }
 
+[node name="HighScoreForm" type="VBoxContainer" parent="GameOverRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.0
+offset_top = -20.0
+offset_right = 237.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HighScoreLabel" type="Label" parent="GameOverRect/HighScoreForm"]
+process_mode = 1
+layout_mode = 2
+text = "Submit your socre:"
+label_settings = SubResource("LabelSettings_qkh4e")
+horizontal_alignment = 1
+
+[node name="HighScoreInput" type="LineEdit" parent="GameOverRect/HighScoreForm"]
+layout_mode = 2
+theme = ExtResource("737_y8kuc")
+placeholder_text = "Your name"
+alignment = 1
+
+[node name="HighScoreButton" type="Button" parent="GameOverRect/HighScoreForm"]
+layout_mode = 2
+theme = ExtResource("737_y8kuc")
+text = "Submit"
+
 [node name="GetReady" type="Control" parent="."]
 process_mode = 1
 layout_mode = 3
@@ -4824,6 +4856,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="ColorRect" type="TextureRect" parent="GetReady"]
 process_mode = 1
@@ -4881,4 +4914,5 @@ game = NodePath("../..")
 [connection signal="current_measure" from="Conductor" to="." method="_on_conductor_current_measure"]
 [connection signal="finished" from="Conductor" to="." method="_on_conductor_finished"]
 [connection signal="pressed" from="GameOverRect/BackToMenuButton_GO" to="." method="_on_back_to_menu_button_go_pressed"]
+[connection signal="pressed" from="GameOverRect/HighScoreForm/HighScoreButton" to="." method="_on_high_score_button_pressed"]
 [connection signal="animation_finished" from="GetReady/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

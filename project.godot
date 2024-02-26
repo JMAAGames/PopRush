@@ -21,6 +21,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Scripts/Autoloads/Global.gd"
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 
 [display]
 
@@ -34,6 +35,10 @@ window/handheld/orientation="portrait"
 [editor]
 
 movie_writer/movie_file="D:/gamedev/poprush great service/poprush_video3.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg")
 
 [input]
 

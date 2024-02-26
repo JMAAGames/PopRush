@@ -8,12 +8,22 @@ var fx_volume : float
 
 var fullscreen : bool
 
+var current_player_name : String
+
 const GAME_SCENES = {
 	"ArcadeMode": "res://Scenes/Game.tscn",
 	"MainMenu": "res://Scenes/MainMenu.tscn"
 }
 
 var loading_screen = preload("res://Scenes/LoadingScreen.tscn")
+
+func _ready():
+	SilentWolf.configure({
+			"api_key": "WDeq2JRCed2QCfMUPdbvIarjYyMXeWq15kDMdcyk",
+			"game_id": "poprush",
+			"log_level": 0
+		})
+	
 
 func load_scene(current_scene, next_scene):
 	var loading_screen_instance = loading_screen.instantiate()

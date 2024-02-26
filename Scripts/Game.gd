@@ -261,8 +261,18 @@ func _game_over():
 	$GameOverRect.visible = true
 	$GameOverRect/GameOverInfo.text = "Final score: " + str(score) + "\nHighest combo: " + str(max_combo) + "\nLevel: " + str(level)
 	$GameOverRect/GameOverAnim.play("GameOver")
+	$GameOverRect/HighScoreForm/HighScoreInput.grab_focus()
 
 
 func _on_back_to_menu_button_go_pressed():
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 	#Global.load_scene(self, "MainMenu")
+
+
+func _on_high_score_button_pressed():
+	var temp = $GameOverRect/HighScoreForm/HighScoreInput.get_text()
+	var sw_result: Dictionary = await SilentWolf.Scores.save_score(temp, score).sw_save_score_complete
+	Global.current_player_name = temp
+	
+	$GameOverRect/HighScoreForm/HighScoreLabel.text = "Score submitted!"
+	$GameOverRect/HighScoreForm/HighScoreInput.clear()

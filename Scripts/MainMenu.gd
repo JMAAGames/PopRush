@@ -5,6 +5,8 @@ signal fx_audio_changed
 signal music_toggled
 signal fx_toggled
 
+@export var board_entry_scene : PackedScene
+
 func _on_video_stream_player_finished():
 	$VideoStreamPlayer.play()
 
@@ -25,11 +27,13 @@ func _on_main_menu_music_finished():
 func _on_settings_button_pressed():
 	$MenuContainer/MainMenuContainer.hide()
 	$MenuContainer/SettingsMenuContainer.show()
+	$MenuContainer/LeaderboardsContainer.hide()
 
 
 func _on_back_to_menu_button_pressed():
 	$MenuContainer/MainMenuContainer.show()
 	$MenuContainer/SettingsMenuContainer.hide()
+	$MenuContainer/LeaderboardsContainer.hide()
 
 
 func _on_fullscreen_toggled(toggled_on):
@@ -101,3 +105,30 @@ func _on_fx_toggled():
 	
 	bus_index = AudioServer.get_bus_index(bus_name)
 	AudioServer.set_bus_mute(bus_index, Global.fx_enabled)
+
+
+func _on_leaderboards_button_pressed():
+	$MenuContainer/MainMenuContainer.hide()
+	$MenuContainer/SettingsMenuContainer.hide()
+	$MenuContainer/LeaderboardsContainer.show()
+	
+	for a in $MenuContainer/LeaderboardsContainer/LeaderboardScroll/LeaderboardScoresContainer.get_children(): #before anything, just clean up everything before adding stuff there
+		a.queue_free()
+	
+	var sw_result: Dictionary = await SilentWolf.Scores.get_scores().sw_get_scores_complete
+	var scorez = sw_result.scores
+	print("Scores: " + str(sw_result.scores))
+	print(str(scorez))
+	
+	#var sw_result2 = await SilentWolf.Scores.get_top_score_by_player(Global.current_player_name).sw_get_player_scores_complete
+	#var player_score = sw_result2.score
+	
+	for score in scorez:
+		var entry = board_entry_scene.instantiate()
+		entry.player_name = score.player_name
+		entry.player_score = str(int(score.score))
+		$MenuContainer/LeaderboardsContainer/LeaderboardScroll/LeaderboardScoresContainer.add_child(entry)
+	
+	#var player_entry = board_entry_scene.instantiate()
+	#player_entry.player_name = player_score.player_name
+	#player_entry.player_score = str(int(player_score.score))
