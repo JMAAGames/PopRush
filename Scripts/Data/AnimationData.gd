@@ -11,7 +11,7 @@ const RUSH = 1
 const CUM = 2
 
 # Max animations per characters here:
-static var marie_animations = 2
+static var marie_animations = 3
 
 # Here's the magic:
 static var animations = {
@@ -25,6 +25,11 @@ static var animations = {
 			NORMAL: "marie_blowjob_normal",
 			RUSH: "marie_blowjob_rush",
 			CUM: "marie_blowjob_cum"
+		},
+		2: {
+			NORMAL: "marie_pounded_normal",
+			RUSH: "marie_pounded_rush",
+			CUM: "marie_pounded_cum"
 		}
 	}
 }
